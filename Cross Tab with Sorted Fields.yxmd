@@ -1,0 +1,389 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="11.7">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="25">C:\Users\ntaylor\Google Drive\YouTube\Alteryx\Cross Tab Example\AdventureWorks Sales Data.xlsx|||`Sheet1$`</File>
+          <FormatSpecificOptions>
+            <FirstRowData>False</FirstRowData>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>AdventureWorks Sales Data.xlsx
+Table=`Sheet1$`</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ProductKey" source="File: C:\Users\ntaylor\Google Drive\YouTube\Alteryx\Cross Tab Example\AdventureWorks Sales Data.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="OrderDateKey" source="File: C:\Users\ntaylor\Google Drive\YouTube\Alteryx\Cross Tab Example\AdventureWorks Sales Data.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="OrderQuantity" source="File: C:\Users\ntaylor\Google Drive\YouTube\Alteryx\Cross Tab Example\AdventureWorks Sales Data.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="SalesAmount" source="File: C:\Users\ntaylor\Google Drive\YouTube\Alteryx\Cross Tab Example\AdventureWorks Sales Data.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="EnglishProductName" size="255" source="File: C:\Users\ntaylor\Google Drive\YouTube\Alteryx\Cross Tab Example\AdventureWorks Sales Data.xlsx|||`Sheet1$`" type="V_String" />
+            <Field name="EnglishMonthName" size="255" source="File: C:\Users\ntaylor\Google Drive\YouTube\Alteryx\Cross Tab Example\AdventureWorks Sales Data.xlsx|||`Sheet1$`" type="V_String" />
+            <Field name="CalendarYear" source="File: C:\Users\ntaylor\Google Drive\YouTube\Alteryx\Cross Tab Example\AdventureWorks Sales Data.xlsx|||`Sheet1$`" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="174" y="6" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\ntaylor\AppData\Local\Temp\Engine_25772_ea13002728064efda5e8691f3a476d2b_\Engine_21592_060a5d80a0b84e9b950dca93378909ad_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="174" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="Left(ToString([OrderDateKey]), 6)" field="Month and Year Order" size="1073741823" type="V_WString" />
+            <FormulaField expression="[EnglishMonthName] + &quot;-&quot; + ToString([CalendarYear])" field="Month and Year Description" size="1073741823" type="V_WString" />
+            <FormulaField expression="Left(ToString([OrderDateKey]), 6) + &quot;-&quot; + [EnglishMonthName] + &quot;-&quot; + ToString([CalendarYear])" field="Month and Year Padded" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Month and Year Order = Left(ToString([OrderDateKey]), 6)
+Month and Year Descript...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+        <Position x="294" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupFields>
+            <Field field="EnglishProductName" />
+          </GroupFields>
+          <HeaderField field="Month and Year Padded" />
+          <DataField field="OrderQuantity" />
+          <Methods>
+            <Method method="Sum" />
+          </Methods>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="EnglishProductName" size="255" source="CrossTab:Group:Sum:" type="V_String" />
+            <Field name="201301_January_2013" source="CrossTab:Header:Month and Year Padded:201301-January-2013:Sum:" type="Double" />
+            <Field name="201302_February_2013" source="CrossTab:Header:Month and Year Padded:201302-February-2013:Sum:" type="Double" />
+            <Field name="201303_March_2013" source="CrossTab:Header:Month and Year Padded:201303-March-2013:Sum:" type="Double" />
+            <Field name="201304_April_2013" source="CrossTab:Header:Month and Year Padded:201304-April-2013:Sum:" type="Double" />
+            <Field name="201305_May_2013" source="CrossTab:Header:Month and Year Padded:201305-May-2013:Sum:" type="Double" />
+            <Field name="201306_June_2013" source="CrossTab:Header:Month and Year Padded:201306-June-2013:Sum:" type="Double" />
+            <Field name="201307_July_2013" source="CrossTab:Header:Month and Year Padded:201307-July-2013:Sum:" type="Double" />
+            <Field name="201308_August_2013" source="CrossTab:Header:Month and Year Padded:201308-August-2013:Sum:" type="Double" />
+            <Field name="201309_September_2013" source="CrossTab:Header:Month and Year Padded:201309-September-2013:Sum:" type="Double" />
+            <Field name="201310_October_2013" source="CrossTab:Header:Month and Year Padded:201310-October-2013:Sum:" type="Double" />
+            <Field name="201311_November_2013" source="CrossTab:Header:Month and Year Padded:201311-November-2013:Sum:" type="Double" />
+            <Field name="201312_December_2013" source="CrossTab:Header:Month and Year Padded:201312-December-2013:Sum:" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="EnglishProductName" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="402" y="18" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\ntaylor\AppData\Local\Temp\Engine_25772_ea13002728064efda5e8691f3a476d2b_\Engine_21592_002b54501e4a43519e87f6dcc0d37246_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.FieldInfo.FieldInfo">
+        <Position x="402" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFieldInfo" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="618" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\ntaylor\AppData\Local\Temp\Engine_25772_ea13002728064efda5e8691f3a476d2b_\Engine_21592_168c1b0591614eb2b77ef1d58f5053f7_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="498" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="If [Type] = &quot;Double&quot; &#xA;THEN ReplaceChar(Substring([Name],7), &quot;_&quot;, &quot; &quot;) &#xA;ELSE [Name] ENDIF " field="Name" size="21" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Name = If [Type] = "Double" 
+THEN ReplaceChar(Substring([Name],7), "_", " ") 
+EL...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicRename.DynamicRename">
+        <Position x="606" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <RenameMode>RightInputRows</RenameMode>
+          <Fields orderChanged="False">
+            <Field name="EnglishProductName" />
+            <Field name="201301_January_2013" />
+            <Field name="201302_February_2013" />
+            <Field name="201303_March_2013" />
+            <Field name="201304_April_2013" />
+            <Field name="201305_May_2013" />
+            <Field name="201306_June_2013" />
+            <Field name="201307_July_2013" />
+            <Field name="201308_August_2013" />
+            <Field name="201309_September_2013" />
+            <Field name="201310_October_2013" />
+            <Field name="201311_November_2013" />
+            <Field name="201312_December_2013" />
+            <Field name="*Unknown" />
+          </Fields>
+          <Expression />
+          <NamesFromRows>
+            <OnError>Warn</OnError>
+            <InputMode>Positional</InputMode>
+            <NewName>Name</NewName>
+          </NamesFromRows>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="EnglishProductName" size="255" source="CrossTab:Group:Sum:" type="V_String" />
+            <Field name="January 2013" source="CrossTab:Header:Month and Year Padded:201301-January-2013:Sum:" type="Double" />
+            <Field name="February 2013" source="CrossTab:Header:Month and Year Padded:201302-February-2013:Sum:" type="Double" />
+            <Field name="March 2013" source="CrossTab:Header:Month and Year Padded:201303-March-2013:Sum:" type="Double" />
+            <Field name="April 2013" source="CrossTab:Header:Month and Year Padded:201304-April-2013:Sum:" type="Double" />
+            <Field name="May 2013" source="CrossTab:Header:Month and Year Padded:201305-May-2013:Sum:" type="Double" />
+            <Field name="June 2013" source="CrossTab:Header:Month and Year Padded:201306-June-2013:Sum:" type="Double" />
+            <Field name="July 2013" source="CrossTab:Header:Month and Year Padded:201307-July-2013:Sum:" type="Double" />
+            <Field name="August 2013" source="CrossTab:Header:Month and Year Padded:201308-August-2013:Sum:" type="Double" />
+            <Field name="September 2013" source="CrossTab:Header:Month and Year Padded:201309-September-2013:Sum:" type="Double" />
+            <Field name="October 2013" source="CrossTab:Header:Month and Year Padded:201310-October-2013:Sum:" type="Double" />
+            <Field name="November 2013" source="CrossTab:Header:Month and Year Padded:201311-November-2013:Sum:" type="Double" />
+            <Field name="December 2013" source="CrossTab:Header:Month and Year Padded:201312-December-2013:Sum:" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="EnglishProductName" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicRename" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="702" y="30" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\ntaylor\AppData\Local\Temp\Engine_25772_ea13002728064efda5e8691f3a476d2b_\Engine_21592_528032f222dc4872bf49b74fe41bcacf_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="10" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="10" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Cross Tab with Sorted Fields</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
